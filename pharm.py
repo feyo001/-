@@ -43,8 +43,8 @@ with st.form(key="sale_form"):
             sale_data = pd.DataFrame(
                 {
                     "NAME": product_name,
-                    "DATE": sale_date,
-                    "UNITS": unit.strftime("%m/%d/%Y"),
+                    "DATE": sale_date.strftime("%m/%d/%Y"),
+                    "UNITS": unit
 
                 }
             )
