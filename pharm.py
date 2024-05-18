@@ -21,7 +21,7 @@ products_df = products_df.dropna(how='all')
 # st.dataframe(products_df.loc[:,'NAME'])
 # st.dataframe(products_df['NAME'])
 
-# existing_data = conn.read(worksheet="Sales", usecols=list(range(5)), ttl=5)
+existing_data = conn.read(worksheet="Sales", usecols=list(range(5)), ttl=5)
 # st.dataframe(existing_data)
 
 
