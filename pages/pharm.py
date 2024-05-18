@@ -7,7 +7,9 @@ st.title("Sales Management Portal")
 st.markdown("Enter the details of products sold below:")
 
 # Establishing a Google Sheets connection
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+# conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
+
 
 # Get all products
 def get_products():
@@ -39,15 +41,6 @@ with st.form(key="sale_form"):
         if not product_name or not sale_date:
             st.stop()
         else:
-            # Create a new row of sale data
-            # sale_data = pd.DataFrame(
-            #     {
-            #         "NAME": product_name,
-            #         "DATE": sale_date.strftime("%m/%d/%Y"),
-            #         "UNITS": unit
-
-            #     }
-            # )
             sale_data = pd.DataFrame(
                 {
                     "NAME": [product_name],
@@ -64,9 +57,4 @@ with st.form(key="sale_form"):
             conn.update(worksheet="Sales", data=update_df)
 
             st.success("Sales details successfully submitted!")
-
-
-
-    # if submit_button:
-    #     st.write("You clicked submt")
 
