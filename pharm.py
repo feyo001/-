@@ -63,6 +63,8 @@ with st.form(key="sale_form"):
             # Update Google Sheets withthe new sales data
             conn.update(worksheet="Sales", data=update_df)
 
+            st.success("Vendor details successfully submitted!")
+
 
 
     # if submit_button:
