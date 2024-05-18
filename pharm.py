@@ -40,17 +40,25 @@ with st.form(key="sale_form"):
             st.stop()
         else:
             # Create a new row of sale data
+            # sale_data = pd.DataFrame(
+            #     {
+            #         "NAME": product_name,
+            #         "DATE": sale_date.strftime("%m/%d/%Y"),
+            #         "UNITS": unit
+
+            #     }
+            # )
             sale_data = pd.DataFrame(
                 {
-                    "NAME": product_name,
-                    "DATE": sale_date.strftime("%m/%d/%Y"),
-                    "UNITS": unit
-
+                    "NAME": [product_name],
+                    "DATE": [sale_date.strftime("%m/%d/%Y")],
+                    "UNITS": [unit]
                 }
             )
 
+
             # Add the new sale data to existing data
-            update_df = pd.concate([existing_data, sale_data], ignore_index=True)
+            update_df = pd.concat([existing_data, sale_data], ignore_index=True)
         
             # Update Google Sheets withthe new sales data
             conn.update(worksheet="Sales", data=update_df)
