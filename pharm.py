@@ -7,7 +7,6 @@ st.title("Sales Management Portal")
 st.markdown("Enter the details of products sold below:")
 
 # Establishing a Google Sheets connection
-# conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 
@@ -19,18 +18,23 @@ def get_products():
 products_df = get_products()
 products_df = products_df.dropna(how='all')
 
-# st.write("Select Product")
-# st.dataframe(products_df.loc[:,'NAME'])
-# st.dataframe(products_df['NAME'])
 
 existing_data = conn.read(worksheet="Sales", usecols=list(range(5)), ttl=5)
-# st.dataframe(existing_data)
 
 
 with st.form(key="sale_form"):
     product_name = st.selectbox(label="Select Product Name*", options=products_df['NAME'], index=None)
+
+    # Check if product is selected (avoiding potential IndexError)
+    if product_name:
+        price = products_df.loc[products_df['NAME'] == product_name, 'UNIT_PRICE'].values[0]
+        product_reference = products_df.loc[products_df['NAME'] == product_name, 'REF'].values[0]
+    else:
+        price = 0  # Set a default value (optional)
+        product_reference =''
+
+    quantity = st.selectbox(label="Select Quantity*", options=list(range(1, 501)))
     sale_date = st.date_input(label='Select Date*')
-    unit = st.selectbox(label="Select Quantity*", options=list(range(1,501)))
 
     st.markdown("**required*")
 
@@ -44,16 +48,17 @@ with st.form(key="sale_form"):
             sale_data = pd.DataFrame(
                 {
                     "NAME": [product_name],
+                    "REF": [product_reference],
                     "DATE": [sale_date.strftime("%m/%d/%Y")],
-                    "UNITS": [unit]
+                    "UNITS": [quantity],
+                    "PRICE": [price * quantity],
                 }
             )
 
-
             # Add the new sale data to existing data
             update_df = pd.concat([existing_data, sale_data], ignore_index=True)
-        
-            # Update Google Sheets withthe new sales data
+
+            # Update Google Sheets with the new sales data
             conn.update(worksheet="Sales", data=update_df)
 
             st.success("Sales details successfully submitted!")
