@@ -1,4 +1,4 @@
 streamlit
-streamlit_extras.metric_cards
+# streamlit_extras.metric_cards
 st-gsheets-connection
 altair
