@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit_extras.metric_cards as metric_card
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import numpy as np
