@@ -3,7 +3,7 @@ from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 import numpy as np
 import altair as alt
-import plotly.express as px
+# import plotly.express as px
 
 
 
