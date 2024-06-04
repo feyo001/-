@@ -7,19 +7,24 @@ st.title("Sales Management Portal")
 st.markdown("Enter the details of products sold below:")
 
 # Establishing a Google Sheets connection
-conn = st.connection("gsheets", type=GSheetsConnection)
+@st.cache_resource
+def connect_to_gsheet():
+    conn = st.connection("gsheets", type=GSheetsConnection)
+    return conn
 
 
-# Get all products
-def get_products():
-    products_list = conn.read(worksheet="Products", usecols=list(range(5)), ttl=5)
+# Get data
+def get_gsheet_tab(worksheet_name):
+    conn = connect_to_gsheet()
+    products_list = conn.read(worksheet=worksheet_name, usecols=list(range(5)), ttl=5)
     return products_list
 
-products_df = get_products()
+products_df = get_gsheet_tab("Products")
 products_df = products_df.dropna(how='all')
 
 
-existing_data = conn.read(worksheet="Sales", usecols=list(range(5)), ttl=5)
+# existing_data = conn.read(worksheet="Sales", usecols=list(range(5)), ttl=5)
+sales_df = get_gsheet_tab("Sales")
 
 
 with st.form(key="sale_form"):
@@ -56,9 +61,10 @@ with st.form(key="sale_form"):
             )
 
             # Add the new sale data to existing data
-            update_df = pd.concat([existing_data, sale_data], ignore_index=True)
+            update_df = pd.concat([sales_df, sale_data], ignore_index=True)
 
             # Update Google Sheets with the new sales data
+            conn = connect_to_gsheet()
             conn.update(worksheet="Sales", data=update_df)
 
             st.success("Sales details successfully submitted!")
