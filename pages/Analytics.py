@@ -180,7 +180,7 @@ filtered_sales_data = (
 
 # Display data (optional)
 # st.write(filtered_sales_data)
-st.write(sales_display_table)
+st.dataframe(sales_display_table[['DATE','NAME','UNITS','PRICE']])
 
 # Create the chart with Altair
 line_chart = (
