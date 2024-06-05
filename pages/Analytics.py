@@ -42,6 +42,7 @@ def expences_data_wrangle(data):
 expenses_df= expences_data_wrangle(get_sheet_data("Expenses"))
 # st.dataframe(expenses_df)
 
+sales_display_table = None
 df = data_wrangle(sales_df)
 
 # Month dictionary for selection
@@ -64,6 +65,7 @@ with container:
         if selected_date is not None:
             if selected_date.month == st.session_state.get('prev_month', None):
                 filtered_df = df.query("DATE == @selected_date")
+                sales_display_table = filtered_df
                 filtered_expense_df = expenses_df.query("Date == @selected_date")
                 st.subheader("Daily Metrics")
             else:
@@ -162,7 +164,7 @@ with st.container():
     # temp = df.query("DATE == @selected_date")
     # temp = sales_df.query('DATE == @date.month')
     # st.write(temp)  # Optional for debugging
-    st.write(selected_date.month)
+    # st.write(selected_date.month)
 
     
     st.write(f"You selected data for month: {month_dict[selected_date.month]}")
@@ -178,6 +180,7 @@ filtered_sales_data = (
 
 # Display data (optional)
 # st.write(filtered_sales_data)
+st.write(sales_display_table)
 
 # Create the chart with Altair
 line_chart = (
