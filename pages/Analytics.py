@@ -182,7 +182,7 @@ filtered_sales_data = (
 # st.write(filtered_sales_data)
 sales_display_table['DATE']=sales_display_table['DATE'].dt.date
 # st.dataframe(sales_display_table[['DATE','NAME','UNITS','PRICE']])
-sales_display_table = sales_display_table[['DATE','NAME','UNITS','PRICE']].reset_index()
+sales_display_table = sales_display_table[['DATE','NAME','UNITS','PRICE']].reset_index(drop=True).sort_index(ascending=True)
 
 st.write(sales_display_table[['DATE','NAME','UNITS','PRICE']])
 
