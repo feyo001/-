@@ -34,13 +34,17 @@ def data_wrangle(data):
 sales_df = get_sheet_data("Sales")
 
 def expences_data_wrangle(data):
-    data = get_sheet_data("Expenses")
+    # data = get_sheet_data("Expenses")
     data['Date'] = pd.to_datetime(data['Date'], format='%d/%m/%Y')
     data['Month'] = data['Date'].dt.month
+    data['Item'] = data['Item'].str.strip()
     data['Description'] = data['Description'].str.strip()
+
     return data
 
-expenses_df= expences_data_wrangle(get_sheet_data("Expenses"))
+# Get the expenses table
+expenses = get_sheet_data("Expenses")
+expenses_df= expences_data_wrangle(expenses)
 # st.dataframe(expenses_df)
 
 df = data_wrangle(sales_df)
@@ -87,8 +91,8 @@ with container:
             total_products = df['NAME'].nunique()
             average_sales = df['PRICE'].mean()
             total_expenses = filtered_expense_df['Amount'].sum()
-            pepvic_contributon = filtered_expense_df.query('Description == "Pepvic Ventures"')['Amount'].sum()
-            weekly_contribution = filtered_expense_df.query('Description == "Weekly Contribution(Mama)"')['Amount'].sum()
+            pepvic_contributon = filtered_expense_df.query('Item == "Pepvic Ventures"')['Amount'].sum()
+            weekly_contribution = filtered_expense_df.query('Item == "Weekly Contribution(Mama)"')['Amount'].sum()
 
             # Use st.columns for side-by-side metrics (optional)
             # col1, col2 = container.columns([1, 1])
@@ -159,6 +163,8 @@ with st.container():
     # Displaying the chart
     st.altair_chart(chart, use_container_width=True)
 
+    st.dataframe(filtered_df)
+
     # line_chart_df = filtered_df.dropna(axis=1)
     # temp = df.query("DATE == @selected_date")
     # temp = sales_df.query('DATE == @date.month')
@@ -193,6 +199,8 @@ line_chart = (
 
 # Display the chart using Streamlit
 st.altair_chart(line_chart, use_container_width=True)
+
+
 
 
 # # # Top 5 Total units sold per products
