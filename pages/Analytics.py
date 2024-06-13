@@ -64,7 +64,10 @@ left_widget, right_indicator = st.columns([1.5,1.8])
 with container:
     with left_widget:
         selected_date = st.date_input("Select Date")
-        
+
+        monthly_sales_df = df.query("MONTH == @selected_date.month")
+        monthly_expenses_df = expenses_df.query("Month == @selected_date.month")
+
         # Filter data by month or date (based on selection)
         if selected_date is not None:
             if selected_date.month == st.session_state.get('prev_month', None):
@@ -72,11 +75,12 @@ with container:
                 sales_display_table = filtered_df
                 filtered_expense_df = expenses_df.query("Date == @selected_date")
                 st.subheader("Daily Metrics")
-            else:
-                filtered_df = df.query("MONTH == @selected_date.month")
-                filtered_expense_df = expenses_df.query("Month == @selected_date.month")
-                st.session_state['prev_month'] = selected_date.month
-                st.subheader("Overall Month Metrics")
+            # else:
+            #     filtered_df = df.query("MONTH == @selected_date.month")                
+                
+            #     filtered_expense_df = expenses_df.query("Month == @selected_date.month")
+            #     st.session_state['prev_month'] = selected_date.month
+            #     st.subheader("Overall Month Metrics")
                 # st.dataframe(filtered_expense_df)           
 
         else:
@@ -95,12 +99,19 @@ with container:
             pepvic_contributon = filtered_expense_df.query('Item == "Pepvic Ventures"')['Amount'].sum()
             weekly_contribution = filtered_expense_df.query('Item == "Weekly Contribution(Mama)"')['Amount'].sum()
 
+            #######################################################
+            total_sales_by_month = monthly_sales_df['PRICE'].sum()
+            total_expenses_by_month = monthly_expenses_df['Amount'].sum()
+
+            st.metric("Total Sales by Month", value=f"₦{total_sales_by_month:,.0f}", delta=f"{title} Sales")
+            st.metric("Total Expenses by Month", value=f"₦{total_expenses_by_month:,.0f}", delta=f"{title} Expenses")
+            #######################################################
+
             # Use st.columns for side-by-side metrics (optional)
-            # col1, col2 = container.columns([1, 1])
-            col1, col2 = right_indicator.columns([1, 1.2])
+            col1, col2 = right_indicator.columns([1.2, 1.1])
             with col1:
                 st.html('<span class="high_indicator"></span>')  # Assuming class for styling
-                st.metric("Total Sales", value=f"₦{total_sales:,.0f}", delta=f"{title} Sales")
+                st.metric("Total Sales (Daily)", value=f"₦{total_sales:,.0f}", delta=f"{title} Sales")
                 st.metric("Total Products", value=total_products, delta=f"{title} Volume")
                 st.metric("Average Sales", value=f"₦{0 if average_sales is np.nan else average_sales:,.0f}", delta=f"{title} Avg. Sales")
                 
@@ -108,7 +119,7 @@ with container:
                 st.html('<span class="low_indicator"></span>')  # Assuming class for styling
                 st.metric("Pepvic Ventures", value=f"₦{pepvic_contributon:,.0f}", delta=f"{title} Pepvic Ventures")
                 st.metric("Weekly Contribution", value=f"₦{weekly_contribution:,.0f}", delta=f"{title} Weekly Contribution")
-                st.metric("Expenses", value=f"₦{total_expenses:,.0f}", delta=f"{title} Expenses")
+                st.metric("Daily Expenses", value=f"₦{total_expenses:,.0f}", delta=f"{title} Expenses")
 
             # with col3:
             #     st.html('<span class="bottom_indicator"></span>')
@@ -185,12 +196,10 @@ filtered_sales_data = (
 )
 
 # Display data (optional)
-# st.write(filtered_sales_data)
 sales_display_table['DATE']=sales_display_table['DATE'].dt.date
-# st.dataframe(sales_display_table[['DATE','NAME','UNITS','PRICE']])
 sales_display_table = sales_display_table[['DATE','NAME','UNITS','PRICE']].sort_index(ascending=True).reset_index(drop=True)
 
-st.write(sales_display_table[['DATE','NAME','UNITS','PRICE']])
+# st.write(sales_display_table[['DATE','NAME','UNITS','PRICE']])
 
 # Create the chart with Altair
 line_chart = (
