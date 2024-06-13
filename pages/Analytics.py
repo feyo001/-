@@ -75,7 +75,8 @@ with container:
                 sales_display_table = filtered_df
                 filtered_expense_df = expenses_df.query("Date == @selected_date")
                 st.subheader("Daily Metrics")
-            # else:
+            else:
+                pass
             #     filtered_df = df.query("MONTH == @selected_date.month")                
                 
             #     filtered_expense_df = expenses_df.query("Month == @selected_date.month")
@@ -175,7 +176,7 @@ with st.container():
     # Displaying the chart
     st.altair_chart(chart, use_container_width=True)
 
-    st.dataframe(filtered_df)
+    # st.dataframe(filtered_df)
 
     # line_chart_df = filtered_df.dropna(axis=1)
     # temp = df.query("DATE == @selected_date")
@@ -199,7 +200,7 @@ filtered_sales_data = (
 sales_display_table['DATE']=sales_display_table['DATE'].dt.date
 sales_display_table = sales_display_table[['DATE','NAME','UNITS','PRICE']].sort_index(ascending=True).reset_index(drop=True)
 
-# st.write(sales_display_table[['DATE','NAME','UNITS','PRICE']])
+st.write(sales_display_table[['DATE','NAME','UNITS','PRICE']])
 
 # Create the chart with Altair
 line_chart = (
