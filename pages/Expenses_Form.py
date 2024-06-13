@@ -40,7 +40,8 @@ with left_col:
             else:
                 expense_data = pd.DataFrame(
                     {
-                        "Date":[expense_date.strftime("%d/%m/%Y")],
+                        # "Date":[expense_date.strftime("%d/%m/%Y")],
+                        "Date":[TEXT(expense_date,"%d/%m/%Y")],
                         "Item":[item],
                         "Description":[description],
                         "Amount":[amount],
