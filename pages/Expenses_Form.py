@@ -41,7 +41,6 @@ with left_col:
                 formatted_date = expense_date.strftime("%Y-%m-%d") 
                 expense_data = pd.DataFrame(
                     {
-                        # "Date":[expense_date.strftime("%d/%m/%Y")],
                         "Date":[formatted_date.to_string("%d/%m/%Y")],
                         "Item":[item],
                         "Description":[description],
