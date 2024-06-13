@@ -53,11 +53,11 @@ with left_col:
                 conn = connect_to_gsheet()
                 conn.update(worksheet="Expenses", data=update_df)
                 
-           st.success("Expense details successfully submitted!")
+                st.success("Expense details successfully submitted!")
 
                 # Clear cache for expenses_df on successful submission (prevents outdated data)
-           st.session_state["expense_form"] = {}
-           st.cache_data.clear()
+                st.session_state["expense_form"] = {}
+                st.cache_data.clear()
 
 @st.experimental_fragment
 def daily_expense_view():
