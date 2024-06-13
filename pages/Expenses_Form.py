@@ -27,7 +27,7 @@ expenses_df = get_gsheet_tab("Expenses")
 
 left_col, right_col = st.columns([1,1])
 with left_col:
-    with st.form(key="expense_form", clear_on_submit=True):
+    with st.form(key="expense_form"):
         expense_date = st.date_input("Select Date")
         item = st.selectbox(label="Select Expense", options=expenses_df['Item'].str.strip().unique(), index=None)
         description = st.text_input("Description",max_chars=200)
@@ -37,11 +37,10 @@ with left_col:
         if submit_button:
             if not item and amount:
                 st.stop()
-            else:
-                formatted_date = expense_date.strftime("%Y-%m-%d") 
+            else:  
                 expense_data = pd.DataFrame(
                     {
-                        "Date":[formatted_date.to_string("%d/%m/%Y")],
+                        "Date":[expense_date.strftime("%d/%m/%Y")],
                         "Item":[item],
                         "Description":[description],
                         "Amount":[amount],
