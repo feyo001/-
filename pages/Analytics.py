@@ -80,8 +80,7 @@ with container:
                 filtered_df = df.query("MONTH == @selected_date.month")                                
                 filtered_expense_df = expenses_df.query("Month == @selected_date.month")
                 st.session_state['prev_month'] = selected_date.month
-                st.subheader("Overall Month Metrics")
-                st.dataframe(filtered_expense_df)           
+                st.subheader("Overall Month Metrics")       
 
         else:
             filtered_df = pd.DataFrame()  # Empty DataFrame if no date selected
