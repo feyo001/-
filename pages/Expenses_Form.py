@@ -38,10 +38,11 @@ with left_col:
             if not item and amount:
                 st.stop()
             else:
+                formatted_date = expense_date.strftime("%Y-%m-%d") 
                 expense_data = pd.DataFrame(
                     {
                         # "Date":[expense_date.strftime("%d/%m/%Y")],
-                        "Date":[TEXT(expense_date,"%d/%m/%Y")],
+                        "Date":[formatted_date.to_string("%d/%m/%Y")],
                         "Item":[item],
                         "Description":[description],
                         "Amount":[amount],
