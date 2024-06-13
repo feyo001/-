@@ -76,13 +76,12 @@ with container:
                 filtered_expense_df = expenses_df.query("Date == @selected_date")
                 st.subheader("Daily Metrics")
             else:
-                pass
-            #     filtered_df = df.query("MONTH == @selected_date.month")                
-                
-            #     filtered_expense_df = expenses_df.query("Month == @selected_date.month")
-            #     st.session_state['prev_month'] = selected_date.month
-            #     st.subheader("Overall Month Metrics")
-                # st.dataframe(filtered_expense_df)           
+                # pass
+                filtered_df = df.query("MONTH == @selected_date.month")                                
+                filtered_expense_df = expenses_df.query("Month == @selected_date.month")
+                st.session_state['prev_month'] = selected_date.month
+                st.subheader("Overall Month Metrics")
+                st.dataframe(filtered_expense_df)           
 
         else:
             filtered_df = pd.DataFrame()  # Empty DataFrame if no date selected
