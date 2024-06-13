@@ -27,7 +27,7 @@ expenses_df = get_gsheet_tab("Expenses")
 
 left_col, right_col = st.columns([1,1])
 with left_col:
-    with st.form(key="expense_form"):
+    with st.form(key="expense_form", clear_on_submit=True):
         expense_date = st.date_input("Select Date")
         item = st.selectbox(label="Select Expense", options=expenses_df['Item'].str.strip().unique(), index=None)
         description = st.text_input("Description",max_chars=200)
