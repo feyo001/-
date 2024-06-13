@@ -56,6 +56,7 @@ with left_col:
                 st.success("Expense details successfully submitted!")
 
                 # Clear cache for expenses_df on successful submission (prevents outdated data)
+                st.session_state["expense_form"] = {}
                 st.cache_data.clear()
 
 @st.experimental_fragment
