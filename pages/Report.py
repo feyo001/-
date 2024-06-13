@@ -22,7 +22,7 @@ selected_date = st.date_input("Select Date")
 
 # Filter the DataFrame by the selected date
 filtered_df = df[df['DATE'] == pd.to_datetime(selected_date)]
-filtered_df = filtered_df[['DATE', 'NAME', 'UNIT', 'AMOUNT']]
+filtered_df = filtered_df[['DATE', 'NAME', 'UNITS', 'PRICE']]
 st.write(filtered_df.head())
 
 # Generate the report
