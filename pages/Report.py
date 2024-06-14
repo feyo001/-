@@ -54,7 +54,7 @@ report = generate_report(selected_date, filtered_df)
 def generate_report1(date, df):
     for index, row in filtered_expenses_df.iterrows():
         report1 += f"{row['Items']}: ₦{row['Amount']}\n"
-        return report1
+    return report1
         
 report1 = generate_report1(selected_date, filtered_expenses_df)
 
