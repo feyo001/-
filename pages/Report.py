@@ -33,11 +33,11 @@ st.write(filtered_expenses_df.head())
 def generate_report(date, df):
     report = f"Date: {date.strftime('%d/%m/%Y')}\n"
     report += f"Sales: ₦{df['PRICE'].sum():,.2f}\n"
-    report += "Expense(s):\n"
-    report += "Purchases:\n"
-#     purchases = df[df['Category'] == 'Purchases']
-#     for index, row in purchases.iterrows():
-#         report += f"{row['Details']}: N{row['Amount']} by {row['Person']}\n"
+    report += f"Expense(s): ₦{filtered_expenses_df['Amount'].sum():,.2f}\n"
+#   report += "Purchases:\n"
+#     # purchases = df[df['Category'] == 'Purchases']
+    for index, row in filtered_expenses_df.iterrows():
+        report += f"{row['Items']}: ₦{row['Amount']} by {row['Person']}\n"
 # #     report += "Exp:\n"
 #     expenses = df[df['Category'] == 'Exp']
 #     for index, row in expenses.iterrows():
