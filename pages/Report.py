@@ -52,11 +52,16 @@ def generate_report(date, df):
 
 report = generate_report(selected_date, filtered_df)
 
+#def generate_report1(date, df):
+#    for index, row in filtered_expenses_df.iterrows():
+#        report1=""
+#        report1 += f"{row['Item']}: ₦{row['Amount']}\n"
+#    return report1
+
 def generate_report1(date, df):
-    for index, row in filtered_expenses_df.iterrows():
-        report1=""
-        report1 += f"{row['Item']}: ₦{row['Amount']}\n"
-    return report1
+  report1 = [f"{row['Item']}: ₦{row['Amount']}\n" for index, row in df.iterrows()]
+  return "\n".join(report1)  # Join the list items into a string with newlines
+    
         
 report1 = generate_report1(selected_date, filtered_expenses_df)
 
