@@ -56,7 +56,7 @@ def generate_report1(date, df):
         report1 += f"{row['Items']}: ₦{row['Amount']}\n"
         return report1
         
-report1 = generate_report(selected_date, filtered_expenses_df)
+report1 = generate_report1(selected_date, filtered_expenses_df)
 
 # Display the report
 st.text_area("Printable Report", report, height=400)
