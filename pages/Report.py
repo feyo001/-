@@ -36,8 +36,6 @@ def generate_report(date, df):
     report += f"Expense(s): ₦{filtered_expenses_df['Amount'].sum():,.2f}\n"
 #   report += "Purchases:\n"
 #     # purchases = df[df['Category'] == 'Purchases']
-    for index, row in filtered_expenses_df.iterrows():
-        report += f"{row['Items']}: ₦{row['Amount']} by {row['Person']}\n"
 # #     report += "Exp:\n"
 #     expenses = df[df['Category'] == 'Exp']
 #     for index, row in expenses.iterrows():
@@ -53,10 +51,20 @@ def generate_report(date, df):
 
 report = generate_report(selected_date, filtered_df)
 
+def generate_report1(date, df):
+    for index, row in filtered_expenses_df.iterrows():
+        report1 += f"{row['Items']}: ₦{row['Amount']}\n"
+        return report1
+        
+report1 = generate_report(selected_date, filtered_expenses_df)
 
 # Display the report
 st.text_area("Printable Report", report, height=400)
 ################################################################################
+st.text_area("Expense Report", report1, height=250)
+
+################################################################################
+
 
 # df = pd.DataFrame(data)
 # df['Date'] = pd.to_datetime(df['Date'])
