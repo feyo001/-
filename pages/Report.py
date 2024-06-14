@@ -25,10 +25,13 @@ filtered_df = df[df['DATE'] == pd.to_datetime(selected_date)]
 filtered_df = filtered_df[['DATE', 'NAME', 'UNITS', 'PRICE']]
 st.write(filtered_df.head())
 
+st.write(expenses_df.head())
+
 # Generate the report
 def generate_report(date, df):
     report = f"Date: {date.strftime('%d/%m/%Y')}\n"
-    report += "Sale:\n"
+    report += "Sales: {}\n"
+    report += "Expense(s):\n"
     report += "Purchases:\n"
 #     purchases = df[df['Category'] == 'Purchases']
 #     for index, row in purchases.iterrows():
