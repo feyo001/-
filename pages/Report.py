@@ -32,7 +32,7 @@ st.write(filtered_expenses_df.head())
 # Generate the report
 def generate_report(date, df):
     report = f"Date: {date.strftime('%d/%m/%Y')}\n"
-    report += "Sales: {}\n"
+    report += "Sales: {df['PRICE'].sum()}\n"
     report += "Expense(s):\n"
     report += "Purchases:\n"
 #     purchases = df[df['Category'] == 'Purchases']
