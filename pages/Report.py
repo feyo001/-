@@ -26,7 +26,8 @@ filtered_df = filtered_df[['DATE', 'NAME', 'UNITS', 'PRICE']]
 st.write(filtered_df.head())
 
 
-filtered_expenses_df = expenses_df[['Item','Description','Amount']]
+filtered_expenses_df = expenses_df[['Date','Item','Description','Amount']]
+filtered_expenses_df = filtered_expenses_df[filtered_expenses_df['Date'] == pd.to_datetime(selected_date)]
 st.write(filtered_expenses_df.head())
 
 # Generate the report
