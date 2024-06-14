@@ -66,9 +66,9 @@ def generate_report1(date, df):
 report1 = generate_report1(selected_date, filtered_expenses_df)
 
 # Display the report
-st.text_area("Printable Report", report, height=400)
+st.text_area("Printable Report", report, height=150)
 ################################################################################
-st.text_area("Expense Report", report1, height=250)
+st.text_area("Expense Report", report1, height=150)
 
 ################################################################################
 
