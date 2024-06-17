@@ -43,7 +43,7 @@ def generate_report(date, df):
 report = generate_report(selected_date, filtered_df)
  
 # Display the report
-st.text_area("Printable Report", report, height=120)
+st.text_area("Report", report, height=120)
 
 
 # Expense breakdown Table
