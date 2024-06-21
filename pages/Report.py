@@ -6,6 +6,7 @@ from pages.Analytics import data_wrangle
 
 
 
+
 sales = get_sheet_data("Sales")
 sales_df = data_wrangle(sales)
 expenses = get_sheet_data("Expenses")
