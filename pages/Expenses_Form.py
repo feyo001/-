@@ -31,7 +31,7 @@ with left_col:
         expense_date = st.date_input("Select Date")
         item = st.selectbox(label="Select Expense", options=expenses_df['Item'].str.strip().unique(), index=None)
         description = st.text_input("Description",max_chars=200)
-        amount = st.number_input(label="Total Amount", format"%.2f") 
+        amount = st.number_input(label="Total Amount", format="%.2f") 
     
         submit_button = st.form_submit_button(label='Post')
         if submit_button:
