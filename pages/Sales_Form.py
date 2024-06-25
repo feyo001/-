@@ -114,7 +114,16 @@ def update_total_price():
         st.session_state.total_price = price * st.session_state.quantity
 
 # Create widgets outside the form
-st.selectbox(
+
+
+st.date_input(label='Select Date*', key='sale_date')
+
+# Display the total price
+st.markdown(f"**Total Price: {st.session_state.total_price:,.0f}**")
+
+# Form with submit button
+with st.form(key="sale_form"):
+    st.selectbox(
     label="Select Product Name*",
     options=products_df['NAME'],
     index=products_df['NAME'].tolist().index(st.session_state.selected_product),
@@ -130,13 +139,7 @@ st.selectbox(
     on_change=update_total_price
 )
 
-st.date_input(label='Select Date*', key='sale_date')
-
-# Display the total price
-st.markdown(f"**Total Price: {st.session_state.total_price:,.0f}**")
-
-# Form with submit button
-with st.form(key="sale_form"):
+    
     st.markdown("**required**")
     submit_button = st.form_submit_button(label="Sell")
 
