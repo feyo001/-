@@ -29,15 +29,18 @@ st.write(filtered_df.head())
 
 filtered_expenses_df = expenses_df[['Date','Item','Description','Amount']]
 filtered_expenses_df = filtered_expenses_df[filtered_expenses_df['Date'] == pd.to_datetime(selected_date)]
+total_expenses = filtered_expense_df.query('~(Item == "Pepvic Ventures" or Item == "Weekly Contribution(Mama)")')['Amount'].sum()
+            
 # comfort_df = filtered_expenses_df.query('Item == "Comfort"')
 # peter_df = filtered_expenses_df.query('Item == "Peter"')
 
 
 # Generate the report
+# filtered_expenses_df['Amount'].sum()
 def generate_report(date, df):
     report = f"Date: {date.strftime('%d/%m/%Y')}\n"
     report += f"Sales: ₦{df['PRICE'].sum():,.2f}\n"
-    report += f"Expense(s): ₦{filtered_expenses_df['Amount'].sum():,.2f}\n"
+    report += f"Expense(s): ₦{total_expenses:,.2f}\n"
 
     return report
 
