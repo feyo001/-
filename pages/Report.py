@@ -29,7 +29,7 @@ st.write(filtered_df.head())
 
 filtered_expenses_df = expenses_df[['Date','Item','Description','Amount']]
 filtered_expenses_df = filtered_expenses_df[filtered_expenses_df['Date'] == pd.to_datetime(selected_date)]
-total_expenses = filtered_expense_df.query('~(Item == "Pepvic Ventures" or Item == "Weekly Contribution(Mama)")')['Amount'].sum()
+total_expenses = filtered_expenses_df.query('~(Item == "Pepvic Ventures" or Item == "Weekly Contribution(Mama)")')['Amount'].sum()
             
 # comfort_df = filtered_expenses_df.query('Item == "Comfort"')
 # peter_df = filtered_expenses_df.query('Item == "Peter"')
