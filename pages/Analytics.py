@@ -95,6 +95,9 @@ with container:
             total_products = df['NAME'].nunique()
             average_sales = df['PRICE'].mean()
             total_expenses = filtered_expense_df['Amount'].sum()
+            test = filtered_expense_df.query('~(Item == "Pepvic Ventures" and Item == "Weekly Contribution(Mama)")')
+            test = pd.DataFrame(test)
+            st.write(test.head())
             pepvic_contributon = filtered_expense_df.query('Item == "Pepvic Ventures"')['Amount'].sum()
             weekly_contribution = filtered_expense_df.query('Item == "Weekly Contribution(Mama)"')['Amount'].sum()
 
