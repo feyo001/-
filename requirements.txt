@@ -1,4 +1,5 @@
 streamlit
+streamlit gsheets
 st-gsheets-connection
 altair
 numpy<=2.0.0
