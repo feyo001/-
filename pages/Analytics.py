@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import pandas as pd
-import numpy as np
+# import numpy as np
 import altair as alt
 # import plotly.express as px
 
@@ -114,7 +114,7 @@ with container:
                 st.html('<span class="high_indicator"></span>')  # Assuming class for styling
                 st.metric("Total Sales (Daily)", value=f"₦{total_sales:,.0f}", delta=f"{title} Sales")
                 st.metric("Total Products", value=total_products, delta=f"{title} Volume")
-                st.metric("Average Sales", value=f"₦{0 if average_sales is np.nan else average_sales:,.0f}", delta=f"{title} Avg. Sales")
+                st.metric("Average Sales", value=f"₦{0 if average_sales is pd.NA else average_sales:,.0f}", delta=f"{title} Avg. Sales")
                 
             with col2:
                 st.html('<span class="low_indicator"></span>')  # Assuming class for styling
