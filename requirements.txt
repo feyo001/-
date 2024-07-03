@@ -1,4 +1,4 @@
 streamlit
 st-gsheets-connection
 altair
-numpy
+numpy==1.23.4
